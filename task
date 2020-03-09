@@ -1,0 +1,9 @@
+select ifnull(ifnull(A.dimension_1, b.Dimension_1),'0') dimension_1, 
+ifnull(correct_dimension_2,'0') dimension_2, 
+sum(ifnull(measure_1,0)) measure_1, 
+sum(ifnull(measure_2,0)) measure_2
+from A full outer join B 
+on A.dimension_1 = B.dimension_1
+left join ( select * from map union select * from map) map
+on ifnull(A.dimension_1, b.Dimension_1) = map.dimension_1
+group by ifnull(ifnull(A.dimension_1, b.Dimension_1),'0') , ifnull(correct_dimension_2,'0')
